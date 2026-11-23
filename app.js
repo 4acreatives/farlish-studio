@@ -327,8 +327,15 @@ function initContactForm() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
       
-      showToast('🎉 Thank you! Your project inquiry has been received. Our lead strategist will reply within 4 hours.', 'success');
+      showToast('🎉 Thank you! Your project inquiry has been received. Opening calendar to pick your call time...', 'success');
       form.reset();
+
+      // Open Calendly modal after form submission
+      setTimeout(() => {
+        if (window.Calendly) {
+          Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
+        }
+      }, 1200);
     }, 1200);
   });
 }
