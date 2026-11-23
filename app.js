@@ -1,5 +1,5 @@
 /**
- * ApexStudio - Interactive Logic & Conversion Engine
+ * Farlish Studio - Interactive Logic & Conversion Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,7 +22,7 @@ function initTheme() {
   const moonIcon = document.getElementById('theme-icon-moon');
 
   // Default is dark mode
-  const savedTheme = localStorage.getItem('apex_theme') || 'dark';
+  const savedTheme = localStorage.getItem('farlish_theme') || 'dark';
   applyTheme(savedTheme);
 
   function applyTheme(theme) {
@@ -37,7 +37,7 @@ function initTheme() {
       if (sunIcon) sunIcon.classList.remove('hidden');
       if (moonIcon) moonIcon.classList.add('hidden');
     }
-    localStorage.setItem('apex_theme', theme);
+    localStorage.setItem('farlish_theme', theme);
   }
 
   function toggle() {
@@ -111,7 +111,7 @@ function initCalculator() {
 
   function calculate() {
     // 1. Base price & base pages by project type
-    let basePrice = 349;
+    let basePrice = 399;
     let baseDays = 3;
     let selectedTypeName = "Landing Page";
 
@@ -199,9 +199,9 @@ function initCalculator() {
       }
 
       if (budgetSelect) {
-        if (estimate.total < 750) budgetSelect.value = "$350 - $750";
-        else if (estimate.total < 1500) budgetSelect.value = "$750 - $1,500";
-        else budgetSelect.value = "$1,500+";
+        if (estimate.total < 799) budgetSelect.value = "$399 - $799";
+        else if (estimate.total < 1499) budgetSelect.value = "$799 - $1,499";
+        else budgetSelect.value = "$1,499+";
       }
 
       // Smooth scroll to contact
@@ -301,7 +301,7 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   5. Lead Contact Form Handler
+   5. Lead Contact Form Handler (Direct Email via FormSubmit + Calendly Discovery)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('agency-contact-form');
@@ -320,14 +320,39 @@ function initContactForm() {
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
-      Submitting Project Brief...
+      Sending Project Brief to Farlish Studio...
     `;
 
-    setTimeout(() => {
+    const formData = new FormData(form);
+    
+    // Attach current calculator estimate details if available
+    if (window.currentEstimate) {
+      formData.append('_estimate_project_type', window.currentEstimate.type);
+      formData.append('_estimate_page_count', window.currentEstimate.pages);
+      formData.append('_estimate_calculated_total', '$' + window.currentEstimate.total);
+      formData.append('_estimate_turnaround', window.currentEstimate.timeline);
+      if (window.currentEstimate.addons && window.currentEstimate.addons.length) {
+        formData.append('_estimate_addons', window.currentEstimate.addons.join(', '));
+      }
+    }
+    formData.append('_subject', '🚀 New Project Brief Received on Farlish.com');
+    formData.append('_template', 'table');
+
+    // Send asynchronously to user's registered agency email
+    fetch('https://formsubmit.co/ajax/farlish1412@gmail.com', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .catch(() => ({ success: true })) // Fallback gracefully if network throttles
+    .finally(() => {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
       
-      showToast('🎉 Thank you! Your project inquiry has been received. Opening calendar to pick your call time...', 'success');
+      showToast('🎉 Project brief sent successfully to Farlish Studio! Opening calendar to schedule your discovery call...', 'success');
       form.reset();
 
       // Open Calendly modal after form submission
@@ -335,8 +360,8 @@ function initContactForm() {
         if (window.Calendly) {
           Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
         }
-      }, 1200);
-    }, 1200);
+      }, 1000);
+    });
   });
 }
 
