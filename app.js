@@ -111,14 +111,14 @@ function initCalculator() {
 
   function calculate() {
     // 1. Base price & base pages by project type
-    let basePrice = 850;
-    let baseDays = 7;
+    let basePrice = 349;
+    let baseDays = 3;
     let selectedTypeName = "Landing Page";
 
     typeRadios.forEach(r => {
       if (r.checked) {
         basePrice = parseInt(r.value, 10);
-        baseDays = parseInt(r.dataset.days || 7, 10);
+        baseDays = parseInt(r.dataset.days || 3, 10);
         selectedTypeName = r.dataset.name || "Custom Website";
       }
     });
@@ -129,7 +129,7 @@ function initCalculator() {
     
     let extraPagesCost = 0;
     if (pages > 1) {
-      extraPagesCost = (pages - 1) * 110;
+      extraPagesCost = (pages - 1) * 50;
     }
 
     // 3. Add-ons
@@ -144,14 +144,14 @@ function initCalculator() {
 
     // 4. Delivery Speed Multiplier
     let speedMultiplier = 1.0;
-    let deliveryLabel = `${baseDays} - ${baseDays + 5} Days`;
+    let deliveryLabel = `${baseDays} - ${baseDays + 3} Days`;
     timelineRadios.forEach(t => {
       if (t.checked) {
         speedMultiplier = parseFloat(t.value);
         if (speedMultiplier > 1.0) {
-          deliveryLabel = "Express (5 - 7 Days)";
+          deliveryLabel = "Express (2 - 4 Days)";
         } else if (speedMultiplier < 1.0) {
-          deliveryLabel = "Standard (14 - 21 Days)";
+          deliveryLabel = "Standard (7 - 10 Days)";
         }
       }
     });
@@ -199,9 +199,9 @@ function initCalculator() {
       }
 
       if (budgetSelect) {
-        if (estimate.total < 1500) budgetSelect.value = "$1,000 - $2,500";
-        else if (estimate.total < 3500) budgetSelect.value = "$2,500 - $5,000";
-        else budgetSelect.value = "$5,000+";
+        if (estimate.total < 750) budgetSelect.value = "$350 - $750";
+        else if (estimate.total < 1500) budgetSelect.value = "$750 - $1,500";
+        else budgetSelect.value = "$1,500+";
       }
 
       // Smooth scroll to contact
