@@ -12,18 +12,19 @@ Farlish Studio builds high-performance, conversion-engineered websites that turn
 - [E-Commerce & Booking Platforms](https://farlish.com/#pricing): Storefronts, appointment scheduling, and payment gateway integrations (Stripe, Calendly, PayPal).
 - [SEO & Speed Optimization](https://farlish.com/#services): 95+ Google PageSpeed scores, multi-entity schema markup, and Google Search Console indexing.
 
-## Pricing Packages (Transparent & Fixed)
+## Pricing Packages (Transparent, All-Inclusive & Fixed)
 
-- **Starter Launch ($399 USD)**: Single high-converting landing page, 2–4 days delivery, 100% responsive, lead capture form, WhatsApp integration, and on-page SEO.
-- **Standard Business ($799 USD)**: 3 to 5 custom pages, 5–7 days delivery, interactive project cost estimator, local SEO schema, Google reviews integration, and CMS setup.
-- **Growth & Store ($1,499 USD)**: Full multi-page platform or e-commerce store, 10–14 days delivery, payment gateway & booking workflows, advanced animation, and 30-day priority support.
+- **Starter Launch ($399 USD)**: Single high-converting landing page, 2–4 days delivery, 100% responsive, lead capture form, WhatsApp integration, plus **FREE Professional Copywriting ($189 value)** and **FREE Google SEO Setup ($149 value)** included.
+- **Standard Business ($799 USD)**: 3 to 5 custom pages, 5–7 days delivery, interactive project cost estimator, local SEO schema, Google reviews integration, visual CMS dashboard, plus **FREE Multi-Page Copywriting ($289 value)** and **FREE Google Maps profile setup ($199 value)** included.
+- **Growth & Store ($1,499 USD)**: Full multi-page platform or e-commerce store, 10–14 days delivery, Stripe/PayPal payment gateway & booking workflows, product catalog setup, store copywriting, and 60-day VIP priority support.
 
 ## Key Differentiators
 
+- **All-Inclusive Value**: Unlike agencies charging extra for every word and tag, Farlish Studio bundles custom design, conversion copywriting, and local SEO free in every build.
 - **Lightning-Fast Turnaround**: Delivered in days (2–7 days), not months.
-- **Transparent Rates**: Fixed pricing without the standard $5,000+ agency markup.
-- **Conversion-First Engineering**: Built with proven psychological triggers, fast load times, and frictionless booking widgets.
-- **Global & US Reach**: Serving United States businesses, UAE/Middle East clients, and global startups.
+- **Transparent Rates**: Fixed pricing starting at $399 without the standard $5,000+ agency markup.
+- **Risk-Free Guarantees**: 100% Money-back satisfaction guarantee and $50/day on-time delivery credit.
+- **US Focus & Global Reach**: Engineered specifically for United States small businesses, local contractors, and global startups.
 
 ## Official Links & Contact
 
