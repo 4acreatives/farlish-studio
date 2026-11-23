@@ -381,7 +381,7 @@ function initContactForm() {
     formData.append('_template', 'table');
 
     // Send asynchronously to user's registered agency email
-    fetch('https://formsubmit.co/ajax/farlish1412@gmail.com', {
+    fetch('https://formsubmit.co/ajax/hello@farlish.com', {
       method: 'POST',
       body: formData,
       headers: {
