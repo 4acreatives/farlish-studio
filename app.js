@@ -305,6 +305,19 @@ function initFaqAccordion() {
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('agency-contact-form');
+  const bookingContainer = document.getElementById('booking-success-container');
+  const openPopupBtn = document.getElementById('open-calendly-popup-btn');
+
+  if (openPopupBtn) {
+    openPopupBtn.addEventListener('click', () => {
+      if (window.Calendly) {
+        Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
+      } else {
+        window.open('https://calendly.com/farlish1412/30min', '_blank');
+      }
+    });
+  }
+
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
@@ -352,15 +365,26 @@ function initContactForm() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
       
-      showToast('🎉 Project brief sent successfully to Farlish Studio! Opening calendar to schedule your discovery call...', 'success');
+      showToast('🎉 Project brief sent successfully to Farlish Studio!', 'success');
       form.reset();
 
-      // Open Calendly modal after form submission
+      // Transform form into interactive booking calendar screen
+      if (bookingContainer) {
+        form.classList.add('hidden');
+        bookingContainer.classList.remove('hidden');
+        bookingContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // Also attempt automatic popup
       setTimeout(() => {
         if (window.Calendly) {
-          Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
+          try {
+            Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
+          } catch(err) {
+            console.log('Popup widget fallback active');
+          }
         }
-      }, 1000);
+      }, 500);
     });
   });
 }
