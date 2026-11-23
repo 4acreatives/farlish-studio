@@ -301,12 +301,40 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   5. Lead Contact Form Handler (Direct Email via FormSubmit + Calendly Discovery)
+   5. Lead Contact Form Handler (Direct Email via FormSubmit + Optional Discovery)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('agency-contact-form');
   const bookingContainer = document.getElementById('booking-success-container');
   const openPopupBtn = document.getElementById('open-calendly-popup-btn');
+  const toggleCalendarBtn = document.getElementById('toggle-calendar-view-btn');
+  const calendarWrapper = document.getElementById('calendar-embed-wrapper');
+  const calendarArrow = document.getElementById('calendar-toggle-arrow');
+  const submitAnotherBtn = document.getElementById('submit-another-brief-btn');
+  const successMessageText = document.getElementById('success-message-text');
+
+  // Toggle calendar view
+  if (toggleCalendarBtn && calendarWrapper) {
+    toggleCalendarBtn.addEventListener('click', () => {
+      const isHidden = calendarWrapper.classList.contains('hidden');
+      if (isHidden) {
+        calendarWrapper.classList.remove('hidden');
+        if (calendarArrow) calendarArrow.style.transform = 'rotate(180deg)';
+      } else {
+        calendarWrapper.classList.add('hidden');
+        if (calendarArrow) calendarArrow.style.transform = 'rotate(0deg)';
+      }
+    });
+  }
+
+  // Switch back to form
+  if (submitAnotherBtn && form && bookingContainer) {
+    submitAnotherBtn.addEventListener('click', () => {
+      bookingContainer.classList.add('hidden');
+      form.classList.remove('hidden');
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
 
   if (openPopupBtn) {
     openPopupBtn.addEventListener('click', () => {
@@ -337,6 +365,7 @@ function initContactForm() {
     `;
 
     const formData = new FormData(form);
+    const commPreference = formData.get('comm_preference') || 'Email Proposal (No Call Needed)';
     
     // Attach current calculator estimate details if available
     if (window.currentEstimate) {
@@ -348,7 +377,7 @@ function initContactForm() {
         formData.append('_estimate_addons', window.currentEstimate.addons.join(', '));
       }
     }
-    formData.append('_subject', '🚀 New Project Brief Received on Farlish.com');
+    formData.append('_subject', `🚀 New Project Brief (${commPreference}) - Farlish.com`);
     formData.append('_template', 'table');
 
     // Send asynchronously to user's registered agency email
@@ -368,23 +397,40 @@ function initContactForm() {
       showToast('🎉 Project brief sent successfully to Farlish Studio!', 'success');
       form.reset();
 
-      // Transform form into interactive booking calendar screen
+      // Transform form into personalized confirmation screen
       if (bookingContainer) {
         form.classList.add('hidden');
         bookingContainer.classList.remove('hidden');
-        bookingContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      // Also attempt automatic popup
-      setTimeout(() => {
-        if (window.Calendly) {
-          try {
-            Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
-          } catch(err) {
-            console.log('Popup widget fallback active');
+        
+        if (commPreference === 'Google Meet Call') {
+          if (successMessageText) {
+            successMessageText.textContent = "Your project brief has been received! As requested, pick a convenient time on our Google Meet calendar below to discuss your project live:";
+          }
+          if (calendarWrapper) {
+            calendarWrapper.classList.remove('hidden');
+            if (calendarArrow) calendarArrow.style.transform = 'rotate(180deg)';
+          }
+          // Attempt popup
+          setTimeout(() => {
+            if (window.Calendly) {
+              try {
+                Calendly.initPopupWidget({ url: 'https://calendly.com/farlish1412/30min' });
+              } catch(err) {}
+            }
+          }, 400);
+        } else {
+          // Email only preferred
+          if (successMessageText) {
+            successMessageText.textContent = "No call required! Our directors are reviewing your project scope now and will email you a tailored sprint roadmap and guaranteed quote within 4 hours.";
+          }
+          if (calendarWrapper) {
+            calendarWrapper.classList.add('hidden');
+            if (calendarArrow) calendarArrow.style.transform = 'rotate(0deg)';
           }
         }
-      }, 500);
+
+        bookingContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
   });
 }
